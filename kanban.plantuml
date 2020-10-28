@@ -1,0 +1,33 @@
+@startuml Restaurant class diagram
+
+left to right direction
+
+class User {
+    static : Array[Users]
+    id : Integer
+    name : String
+    avatar : String 
+}
+
+class Task {
+    id : Integer
+    desc : String
+    status : Integer
+    users : Array[User]
+}
+
+class Project {
+    id : Integer
+    name : String
+    tasks : Array[Task]
+    ---
+    createTask(Task)
+    removeTask(Task)
+    updateTask(Task)
+}
+
+User }-- Task
+Task }-- Project
+
+
+@enduml
