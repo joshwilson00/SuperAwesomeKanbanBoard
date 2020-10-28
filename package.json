@@ -1,0 +1,27 @@
+{
+  "name": "superawesomekanbanboard",
+  "version": "1.0.0",
+  "description": "A Group Kanban Board developed by Hal Vipan, Josh Wilson and Isabella Aston --- Our Kanban class diagram ![Kanban class diagram](https://user-images.githubusercontent.com/72230077/97427482-86fd9600-190c-11eb-8906-fc2771b61180.png)",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/halvipan/SuperAwesomeKanbanBoard.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/halvipan/SuperAwesomeKanbanBoard/issues"
+  },
+  "homepage": "https://github.com/halvipan/SuperAwesomeKanbanBoard#readme",
+  "dependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.3",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.0",
+    "handlebars": "^4.7.6",
+    "nodemon": "^2.0.6",
+    "sequelize": "^6.3.5",
+    "sqlite3": "^5.0.0"
+  }
+}
