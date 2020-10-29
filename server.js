@@ -84,7 +84,9 @@ app.post('/user/:userid/destroy', async (req, res) => {
 
 //create project, redirect back
 app.post('/project/create', async (req, res) => {
+    console.log(req.body);
     await Project.create(req.body)
+    console.log('Prokect created')
     res.redirect('back')
 })
 
