@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "PORT=3000 nodemon server.js",
+    "dev": "NODE_ENV='test' PORT=3000 nodemon server.js",
     "test": "jest --watchAll"
   },
   "repository": {
