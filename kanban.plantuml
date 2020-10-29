@@ -5,14 +5,14 @@ left to right direction
 class User {
     id : Integer
     name : String
-    avatar : String 
+    avatar : String
+    tasks : Array[Tasks]
 }
 
 class Task {
     id : Integer
     desc : String
     status : Integer
-    users : Array[User]
 }
 
 class Project {
@@ -21,7 +21,7 @@ class Project {
     tasks : Array[Task]
 }
 
-User }-- Task
+User --{ Task
 Task }-- Project
 
 
