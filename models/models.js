@@ -16,20 +16,20 @@ Project.init(
 );
 Task.init(
     {
-        name: DataTypes.STRING,
+        description: DataTypes.STRING,
         status: DataTypes.INTEGER
     },
     {sequelize}
 );
 User.init(
     {
-        name: DataTypes.STRING
+        name: DataTypes.STRING,
+        avatar: DataTypes.STRING
     },
     {sequelize}
 )
 Project.hasMany(Task, {as: 'tasks'});
 Task.belongsTo(Project);
-// User.belongsToMany(Task, {through:  Project});
 User.hasMany(Task, {as: 'tasks'});
 
 module.exports = {Project, Task, User, sequelize};
