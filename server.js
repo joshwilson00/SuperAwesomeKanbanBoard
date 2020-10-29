@@ -126,11 +126,10 @@ app.post('/task/:taskid/destroy', async (req, res) => {
     res.redirect('back')
 })
 
-//assign user from id to task from id, redirect back
+//assign userid from body to task from id, redirect back
 app.post('/task/:taskid/assign', async (req, res) => {
-    const user = await User.findByPk(req.body.userid)
     const task = await Task.findByPk(req.params.taskid,{ logging: false })
-    await task.addUser(user)
+    await task.update(req.body.userid)
     res.redirect('back')
 })
 
