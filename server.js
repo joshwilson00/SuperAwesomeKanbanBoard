@@ -3,7 +3,9 @@ const Handlebars = require('handlebars')
 const expressHandlebars = require('express-handlebars')
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 const app = express()
-const { Project, Task, User } = require('./models/models.js')
+
+const { Project, Task, User, sequelize } = require('./models/models.js')
+
 const handlebars = expressHandlebars({
     handlebars: allowInsecurePrototypeAccess(Handlebars)
 })
@@ -136,4 +138,7 @@ app.post('/task/:taskid/assign', async (req, res) => {
 
 
 //host of port 3000
-app.listen(3000, () => console.log('web server running on port', 3000))
+app.listen(process.env.PORT, async () => {
+    await sequelize.sync();
+    console.log('Listening on', process.env.PORT);
+})
