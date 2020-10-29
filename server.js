@@ -35,17 +35,13 @@ app.get('/project/:id', async (req, res) => {
         include: [{all : true, nested: true}], 
         logging: false 
     })
-    const todo = []
-    const doing = []
-    const done = []
-    for (task in project.tasks) {
-        if (task.status === 0) { todo.push(task) }
-        else if (task.status === 1) { doing.push(task) }
-        else { done.push(task) }
-    }
+    const todo = await Task.findAll({where : { 'ProjectId' : req.params.id , 'status' : 0}})
+    const doing = await Task.findAll({where : { 'ProjectId' : req.params.id , 'status' : 1}})
+    const done = await Task.findAll({where : { 'ProjectId' : req.params.id , 'status' : 2}})
     const users = await User.findAll({ logging: false })
     res.render('project', {project, todo, doing, done, users})
 })
+
 
 
 //get user from taskid, return user
