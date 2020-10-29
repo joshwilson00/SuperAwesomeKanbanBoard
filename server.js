@@ -44,7 +44,7 @@ app.get('/project/:id', async (req, res) => {
         else { done.push(task) }
     }
     const users = await User.findAll({ logging: false })
-    res.render('projects', {project, todo, doing, done, users})
+    res.render('project', {project, todo, doing, done, users})
 })
 
 
