@@ -4,7 +4,8 @@
   "description": "A Group Kanban Board developed by Hal Vipan, Josh Wilson and Isabella Aston",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "jest --watchAll"
   },
   "repository": {
     "type": "git",
