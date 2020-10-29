@@ -57,6 +57,7 @@ describe('Project', () => {
     test('Project should contain all the tasks.', async () => {
         const projects = await Project.findAll({include: [{all: true, nested: true}]});
         expect(projects[0].tasks[0].description).toBe('Go shopping');
+        expect(projects[0].tasks[0].status).toBe(0);
     });
     test('User should know all the tests its assigned to.', async () => {
         const users = await User.findAll({include: [{all: true, nested: true}]});

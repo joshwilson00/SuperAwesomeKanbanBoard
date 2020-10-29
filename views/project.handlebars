@@ -6,35 +6,35 @@
         <input type="submit" value="Add Task">
     </form>
     <div class="toDoTasks">
+        <h3>To-Do</h3>
         {{#each todo}}
             <div class="task">
-                <a href="/{{./projectId}}/{{this.id}}/edit" method="POST">Edit Task</a>
-                <a href="/{{./projectId}}/{{this.id}}/delete" method="POST">Delete Task</a>
+                <a href="/task/{{this.id}}/update" method="POST">Edit Task</a>
+                <a href="/task/{{this.id}}/destroy" method="POST">Delete Task</a>
                 <a href="{{./projectId}}/{{this.id}}/users" method="POST">Assign User</a>
-                {{this.description}}
-                {{this.UserId}}
+                <p>{{this.description}}</p>
             </div>
         {{/each}}
     </div>
     <div class="doingTasks">
+        <h3>Doing</h3>
         {{#each doing}}
             <div class="task">
-                <a href="/{{./projectId}}/{{this.id}}/edit" method="POST">Edit Task</a>
-                <a href="/{{./projectId}}/{{this.id}}/delete" method="POST">Delete Task</a>
+                <a href="/task/{{this.id}}/update" method="POST">Edit Task</a>
+                <a href="/task/{{this.id}}/destroy" method="POST">Delete Task</a>
                 <a href="{{./projectId}}/{{this.id}}/users" method="POST">Assign User</a>
-                {{this.description}}
-                {{this.UserId}}
+                <p>{{this.description}}</p>
             </div>
         {{/each}}
     </div>
     <div class="doneTasks">
+        <h3>Done</h3>
         {{#each done}}
             <div class="task">
-                <a href="/{{./projectId}}/{{this.id}}/edit" method="POST">Edit Task</a>
-                <a href="/{{./projectId}}/{{this.id}}/delete" method="POST">Delete Task</a>
+                <a href="/task/{{this.id}}/update" method="POST">Edit Task</a>
+                <a href="/task/{{this.id}}/destroy" method="POST">Delete Task</a>
                 <a href="{{./projectId}}/{{this.id}}/users" method="POST">Assign User</a>
-                {{this.description}}
-                {{this.UserId}}
+                <p>{{this.description}}</p>
             </div>
         {{/each}}
     </div>
@@ -52,6 +52,7 @@
         <option value="done">Done</option>
     </select>
     <div class="toDoTasks">
+        <h3>To-Do</h3>
         {{#each todo}}
             <div class="task">
                 <a href="/{{./projectId}}/{{this.id}}/edit" method="POST">Edit Task</a>
@@ -63,6 +64,7 @@
         {{/each}}    
     </div>
     <div class="doingTasks">
+        <h3>Doing</h3>
         {{#each doing}}
             <div class="task">
                 <a href="/{{./projectId}}/{{this.id}}/edit" method="POST">Edit Task</a>
@@ -74,11 +76,12 @@
         {{/each}}    
     </div>
     <div class="toDoTasks">
+        <h3>Done</h3>
         {{#each done}}
             <div class="task">
-                <a href="/{{./projectId}}/{{this.id}}/edit" method="POST">Edit Task</a>
-                <a href="/{{./projectId}}/{{this.id}}/delete" method="POST">Delete Task</a>
                 <a href="{{./projectId}}/{{this.id}}/users" method="POST">Assign User</a>
+                <a href="/task/{{this.id}}/update" method="POST">Edit Task</a>
+                <a href="/task/{{this.id}}/destroy" method="POST">Delete Task</a>
                 {{this.description}}
                 {{this.UserId}}
             </div>
