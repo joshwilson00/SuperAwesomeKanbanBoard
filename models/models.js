@@ -10,7 +10,8 @@ class User extends Model {};
 
 Project.init(
     {
-        name: DataTypes.STRING
+        name: DataTypes.STRING,
+        image: DataTypes.STRING
     },
     {sequelize}
 );
