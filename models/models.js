@@ -18,7 +18,7 @@ Project.init(
 Task.init(
     {
         description: DataTypes.STRING,
-        status: DataTypes.INTEGER
+        status: {type:  DataTypes.INTEGER, defaultValue: 0}
     },
     {sequelize}
 );
