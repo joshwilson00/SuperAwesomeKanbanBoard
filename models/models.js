@@ -30,6 +30,6 @@ User.init(
 Project.hasMany(Task, {as: 'tasks'});
 Task.belongsTo(Project);
 // User.belongsToMany(Task, {through:  Project});
-Task.hasMany(User, {as: 'users'});
+User.hasMany(Task, {as: 'tasks'});
 
 module.exports = {Project, Task, User, sequelize};
