@@ -45,7 +45,6 @@
                     <option value="{{this.id}}">{{this.name}}</option>
                     {{/each}}
                 </select>
-                <a href="{{./projectId}}/{{this.id}}/users" method="POST">Assign User</a>
                 <a href="/task/{{this.id}}/update" method="POST">Edit Task</a>
                 <a href="/task/{{this.id}}/destroy" method="POST">Delete Task</a>
                 <p>{{this.description}}</p>

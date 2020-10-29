@@ -111,7 +111,6 @@ app.post('/project/:projectid/destroy', async (req, res) => {
 //create task, find project from id and assign, redirect back
 app.post('/task/project/:projectid/create', async (req, res) => {
     const task = await Task.create(req.body)
-    task.status= 0
     const project = await Project.findByPk(req.params.projectid,{ logging: false })
     await project.addTask(task)
     res.redirect('back')
