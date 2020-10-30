@@ -1,4 +1,4 @@
-<div class="homeView hidden">
+{{!-- <div class="homeView hidden">
         <a href="/">Back to projects</a>
         <h1>{{project.name}}</h1>
     <form class="taskForm"action="/task/project/{{project.id}}/create" method="POST">
@@ -108,8 +108,22 @@
             </div>
         {{/each}}  
     </div>
-</div>
-
+</div> --}}
+<div class="phoneView">
+        <a href="/">Back to projects</a>
+        <h1>{{project.name}}</h1>
+        <form class="taskForm"action="/task/project/{{project.id}}/create" method="POST">
+            <input type="text" id="description" name="description" placeholder="Task Description" required> <br>
+            <input type="submit" value="Add Task">
+        </form>
+        <select name="tasks" id="tasks">
+            <option value="to-do">To-Do</option>
+            <option value="doing">Doing</option>
+            <option value="done">Done</option>
+        </select>
+        <section id="projects"></section>
+        </div>
+    </div>
 <script>
     function allowDrop(event){
         event.preventDefault();
@@ -123,6 +137,12 @@
         const id = event.dataTransfer.getData("text");
         console.log('Dropped:',id);
         console.log('On to', event.target.id);
-
+    }
+    const state = {
+        todo: [{id: 1, description: 'test', status: 0}, {id: 2, description: 'Go shopping', status: 0}],
+        doing: [{id: 3, description: 'testing'}],
+        done: [{id: 4, description: 'test Task'}],
+        users: []
     }
 </script>
+<script src="/projects.js"></script>
