@@ -35,11 +35,12 @@ app.get('/project/:id', async (req, res) => {
         include: [{all : true, nested: true}], 
         logging: false 
     })
+    
     const todo = await Task.findAll({where : { 'ProjectId' : req.params.id , 'status' : 0}})
     const doing = await Task.findAll({where : { 'ProjectId' : req.params.id , 'status' : 1}})
     const done = await Task.findAll({where : { 'ProjectId' : req.params.id , 'status' : 2}})
     const users = await User.findAll({ logging: false })
-    res.render('project', {project, todo, doing, done, users})
+    res.render('project', {project: JSON.stringify(project), todo: JSON.stringify(todo), doing: JSON.stringify(doing), done: JSON.stringify(done), users: JSON.stringify(users)})
 })
 
 
@@ -82,7 +83,7 @@ app.post('/user/:userid/destroy', async (req, res) => {
 app.post('/project/create', async (req, res) => {
     console.log(req.body);
     await Project.create(req.body)
-    console.log('Project created')
+    console.log('Prokect created')
     res.redirect('back')
 })
 
@@ -103,12 +104,6 @@ app.post('/project/:projectid/destroy', async (req, res) => {
 
 
 
-//find from id and destroy task, redirect back
-app.get('/task/:taskid/destroy', async (req, res) => {
-    const task = await Task.findByPk(req.params.taskid)
-    await task.destroy()
-    res.redirect('back')
-})
 
 //create task, find project from id and assign, redirect back
 app.post('/task/project/:projectid/create', async (req, res) => {
@@ -122,6 +117,13 @@ app.post('/task/project/:projectid/create', async (req, res) => {
 app.post('/task/:taskid/update', async (req, res) => {
     const task = await Task.findByPk(req.params.taskid,{ logging: false })
     await task.update(req.body)
+    res.redirect('back')
+})
+
+//find from id and destroy task, redirect back
+app.post('/task/:taskid/destroy', async (req, res) => {
+    const task = await Task.findByPk(req.params.taskid)
+    await task.destroy()
     res.redirect('back')
 })
 

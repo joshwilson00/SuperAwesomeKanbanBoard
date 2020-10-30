@@ -125,24 +125,12 @@
         </div>
     </div>
 <script>
-    function allowDrop(event){
-        event.preventDefault();
-    }
-    function onDrag(event) {
-        event.dataTransfer.setData("text", event.target.id);
-    }
-
-    function onDrop(event) {
-        event.preventDefault();
-        const id = event.dataTransfer.getData("text");
-        console.log('Dropped:',id);
-        console.log('On to', event.target.id);
-    }
     const state = {
-        todo: [{id: 1, description: 'test', status: 0}, {id: 2, description: 'Go shopping', status: 0}],
-        doing: [{id: 3, description: 'testing'}],
-        done: [{id: 4, description: 'test Task'}],
-        users: []
+        todo: {{{todo}}},
+        doing: {{{doing}}},
+        done: {{{done}}},
+        users: {{{users}}},
+        project: {{{project}}}
     }
 </script>
 <script src="/projects.js"></script>
