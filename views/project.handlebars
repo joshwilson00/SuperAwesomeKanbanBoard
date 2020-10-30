@@ -1,4 +1,4 @@
-<div class="homeView">
+<div class="homeView hidden">
         <a href="/">Back to projects</a>
         <h1>{{project.name}}</h1>
     <form class="taskForm"action="/task/project/{{project.id}}/create" method="POST">
@@ -14,8 +14,8 @@
                     <option value="{{this.id}}">{{this.name}}</option>
                     {{/each}}
                 </select>
-                <a href="/task/{{this.id}}/update" method="POST">&#128394</a>
-                <a href="/task/{{this.id}}/destroy" method="POST">&#10060</a>
+                <a href="/task/{{this.id}}/update">&#128394</a>
+                <a href="/task/{{this.id}}/destroy">&#10060</a>
                 <p>{{this.description}}</p>
             </div>
         {{/each}}
@@ -25,7 +25,7 @@
         {{#each doing}}
             <div class="task">
                 <select name="assignedUser" id="user">
-                    {{#each users}}
+                    {{#each ./users}}
                     <option value="{{this.id}}">{{this.name}}</option>
                     {{/each}}
                 </select>
@@ -51,7 +51,7 @@
         {{/each}}
     </div>
 </div>
-<div class="phoneView hidden">
+<div class="phoneView">
     <a href="/">Back to projects</a>
     <h1>{{project.name}}</h1>
     <form class="taskForm"action="/task/project/{{project.id}}/create" method="POST">

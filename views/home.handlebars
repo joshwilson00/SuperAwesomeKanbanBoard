@@ -1,4 +1,4 @@
-<div class="desktopView">
+<div class="desktopView hidden">
     <h1>Projects</h1>
             <form class="userForm"action="/user/create" method="POST">
                 <input type="text" id="name" name="name" placeholder="Name" required> <br>
@@ -24,17 +24,17 @@
     </section>
 </div>
 
-<div class= "phoneView hidden">
+<div class= "phoneView">
     <h1>Projects</h1>
     <a href="javascript:;" onClick="showUserForm()">Add User</a>
-        <form class="userForm" action="/users" method="POST">
+        <form class="userForm" action="/user/create" method="POST">
             <input type="text" id="name" name="name" placeholder="Name" required> <br>
             <input type="url" id="avatar" name="avatar" placeholder="Avatar Url" required> <br>
             <input type="submit" value="Add User">
         </form>
     <section class="gallery">
-        {{#each Projects}}
-            <a href="./{{this.id}}">
+        {{#each projects}}
+            <a href="./project/{{this.id}}">
                 <div class="galleryItem" style="background-image: url({{this.image}});">
                     <h3>{{this.name}}</h3>
                 </div>
