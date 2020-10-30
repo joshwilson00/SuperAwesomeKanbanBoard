@@ -14,7 +14,7 @@
                     <option value="{{this.id}}">{{this.name}}</option>
                     {{/each}}
                 </select>
-                <a href="/task/{{this.id}}/update">&#128394</a>
+                {{!-- <a href="/task/{{this.id}}/update">&#128394</a> --}}
                 <a href="/task/{{this.id}}/destroy">&#10060</a>
                 <p>{{this.description}}</p>
             </div>
@@ -29,7 +29,7 @@
                     <option value="{{this.id}}">{{this.name}}</option>
                     {{/each}}
                 </select>
-                <a href="/task/{{this.id}}/update" method="POST">&#128394</a>
+                {{!-- <a href="/task/{{this.id}}/update" method="POST">&#128394</a> --}}
                 <a href="/task/{{this.id}}/destroy" method="POST">&#10060</a>
                 <p>{{this.description}}</p>
             </div>
@@ -44,7 +44,7 @@
                     <option value="{{this.id}}">{{this.name}}</option>
                     {{/each}}
                 </select>
-                <a href="/task/{{this.id}}/update" method="POST">&#128394</a>
+                {{!-- <a href="/task/{{this.id}}/update" method="POST">&#128394</a> --}}
                 <a href="/task/{{this.id}}/destroy" method="POST">&#10060</a>
                 <p>{{this.description}}</p>
             </div>
@@ -58,12 +58,12 @@
         <input type="text" id="description" name="description" placeholder="Task Description" required> <br>
         <input type="submit" value="Add Task">
     </form>
-    <select name="tasks" id="tasks">
-        <option value="to-do">To-Do</option>
-        <option value="doing">Doing</option>
+    <select name="tasks" id="tasks" onchange="showTasks(event)">
+        <option value="to-do" selected onclick="showToDo()">To-Do</option>
+        <option value="doing" onclick="showDoing()">Doing</option>
         <option value="done">Done</option>
     </select>
-    <div class="toDoTasks">
+    <div class="toDoTasksPhone">
         <h3>To-Do</h3>
         {{#each todo}}
             <div class="task">
@@ -72,13 +72,13 @@
                     <option value="{{this.id}}">{{this.name}}</option>
                     {{/each}}
                 </select>
-                <a href="/task/{{this.id}}/update" method="POST">&#128394</a>
+                {{!-- <a href="/task/{{this.id}}/update" method="POST">&#128394</a> --}}
                 <a href="/task/{{this.id}}/destroy" method="POST">&#10060</a>
                 <p>{{this.description}}</p>
             </div>
         {{/each}}    
     </div>
-    <div class="doingTasks">
+    <div class="doingTasksPhone hidden">
         <h3>Doing</h3>
         {{#each doing}}
             <div class="task">
@@ -87,13 +87,13 @@
                     <option value="{{this.id}}">{{this.name}}</option>
                     {{/each}}
                 </select>
-                <a href="/task/{{this.id}}/update" method="POST">&#128394</a>
+                {{!-- <a href="/task/{{this.id}}/update" method="POST">&#128394</a> --}}
                 <a href="/task/{{this.id}}/destroy" method="POST">&#10060</a>
                 <p>{{this.description}}</p>
             </div>
         {{/each}}    
     </div>
-    <div class="toDoTasks">
+    <div class="toDoTasksPhone hidden">
         <h3>Done</h3>
         {{#each done}}
             <div class="task">
@@ -102,10 +102,17 @@
                     <option value="{{this.id}}">{{this.name}}</option>
                     {{/each}}
                 </select>
-                <a href="/task/{{this.id}}/update" method="POST">&#128394</a>
+                {{!-- <a href="/task/{{this.id}}/update" method="POST">&#128394</a> --}}
                 <a href="/task/{{this.id}}/destroy" method="POST">&#10060</a>
                 <p>{{this.description}}</p>
             </div>
         {{/each}}  
     </div>
 </div>
+
+<script>
+    function showTasks(event){
+        event.target.value
+        console.log(event.target.value)
+    }
+</script>
