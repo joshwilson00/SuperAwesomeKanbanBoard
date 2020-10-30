@@ -10,7 +10,7 @@
         {{#each todo}}
             <div class="task">
                 <select name="assignedUser" id="user">
-                    {{#each users}}
+                    {{#each ../users}}
                     <option value="{{this.id}}">{{this.name}}</option>
                     {{/each}}
                 </select>
@@ -25,7 +25,7 @@
         {{#each doing}}
             <div class="task">
                 <select name="assignedUser" id="user">
-                    {{#each ./users}}
+                    {{#each ../users}}
                     <option value="{{this.id}}">{{this.name}}</option>
                     {{/each}}
                 </select>
@@ -40,7 +40,7 @@
         {{#each done}}
             <div class="task">
                 <select name="assignedUser" id="user">
-                    {{#each users}}
+                    {{#each .../users}}
                     <option value="{{this.id}}">{{this.name}}</option>
                     {{/each}}
                 </select>
@@ -68,7 +68,7 @@
         {{#each todo}}
             <div class="task">
                 <select name="assignedUser" id="user">
-                    {{#each users}}
+                    {{#each ../users}}
                     <option value="{{this.id}}">{{this.name}}</option>
                     {{/each}}
                 </select>
@@ -83,7 +83,7 @@
         {{#each doing}}
             <div class="task">
                 <select name="assignedUser" id="user">
-                    {{#each users}}
+                    {{#each ../users}}
                     <option value="{{this.id}}">{{this.name}}</option>
                     {{/each}}
                 </select>
@@ -98,7 +98,7 @@
         {{#each done}}
             <div class="task">
                 <select name="assignedUser" id="user">
-                    {{#each users}}
+                    {{#each ../users}}
                     <option value="{{this.id}}">{{this.name}}</option>
                     {{/each}}
                 </select>
