@@ -105,6 +105,12 @@ app.post('/project/:projectid/destroy', async (req, res) => {
 
 
 
+//find from id and destroy task, redirect back
+app.get('/task/:taskid/destroy', async (req, res) => {
+    const task = await Task.findByPk(req.params.taskid)
+    await task.destroy()
+    res.redirect('back')
+})
 
 //create task, find project from id and assign, redirect back
 app.post('/task/project/:projectid/create', async (req, res) => {
@@ -118,13 +124,6 @@ app.post('/task/project/:projectid/create', async (req, res) => {
 app.post('/task/:taskid/update', async (req, res) => {
     const task = await Task.findByPk(req.params.taskid,{ logging: false })
     await task.update(req.body)
-    res.redirect('back')
-})
-
-//find from id and destroy task, redirect back
-app.post('/task/:taskid/destroy', async (req, res) => {
-    const task = await Task.findByPk(req.params.taskid)
-    await task.destroy()
     res.redirect('back')
 })
 
