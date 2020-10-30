@@ -8,7 +8,7 @@
     <div class="toDoTasks">
         <h3>To-Do</h3>
         {{#each todo}}
-            <div class="task">
+            <div class="task" ondrag='onDrag(event)' draggable=true>
                 <select name="assignedUser" id="user">
                     {{#each ../users}}
                     <option value="{{this.id}}">{{this.name}}</option>
@@ -23,7 +23,7 @@
     <div class="doingTasks">
         <h3>Doing</h3>
         {{#each doing}}
-            <div class="task">
+            <div id="{{this.id}}" class="task" ondrag='onDrag(event)' draggable=true>
                 <select name="assignedUser" id="user">
                     {{#each ../users}}
                     <option value="{{this.id}}">{{this.name}}</option>
@@ -38,7 +38,7 @@
     <div class="doneTasks">
         <h3>Done</h3>
         {{#each done}}
-            <div class="task">
+            <div id="{{this.id}}" class="task" ondrag='onDrag(event)' draggable=true>
                 <select name="assignedUser" id="user">
                     {{#each .../users}}
                     <option value="{{this.id}}">{{this.name}}</option>
@@ -63,10 +63,10 @@
         <option value="doing">Doing</option>
         <option value="done">Done</option>
     </select>
-    <div class="toDoTasks">
+    <div id="0" class="toDoTasks" ondragover="event.preventDefault();" ondrop='onDrop(event)'>
         <h3>To-Do</h3>
         {{#each todo}}
-            <div class="task">
+            <div id={{this.id}} class="task" ondragstart='onDrag(event)' draggable=true>
                 <select name="assignedUser" id="user">
                     {{#each ../users}}
                     <option value="{{this.id}}">{{this.name}}</option>
@@ -78,10 +78,10 @@
             </div>
         {{/each}}    
     </div>
-    <div class="doingTasks">
+    <div id="1" class="doingTasks" ondragover="event.preventDefault();" ondrop='onDrop(event)'>
         <h3>Doing</h3>
         {{#each doing}}
-            <div class="task">
+            <div id={{this.id}} class="task" ondrag='onDrag(event)' draggable=true >
                 <select name="assignedUser" id="user">
                     {{#each ../users}}
                     <option value="{{this.id}}">{{this.name}}</option>
@@ -93,11 +93,11 @@
             </div>
         {{/each}}    
     </div>
-    <div class="toDoTasks">
+    <div id="2" class="toDoTasks" draggable=true ondragover="event.preventDefault();" ondrop='onDrop(event)'>
         <h3>Done</h3>
         {{#each done}}
-            <div class="task">
-                <select name="assignedUser" id="user">
+            <div id="{{this.id}}" class="task" ondrag='onDrag(event)' >
+                <select name="assignedUser" id="user" >
                     {{#each ../users}}
                     <option value="{{this.id}}">{{this.name}}</option>
                     {{/each}}
@@ -109,3 +109,20 @@
         {{/each}}  
     </div>
 </div>
+
+<script>
+    function allowDrop(event){
+        event.preventDefault();
+    }
+    function onDrag(event) {
+        event.dataTransfer.setData("text", event.target.id);
+    }
+
+    function onDrop(event) {
+        event.preventDefault();
+        const id = event.dataTransfer.getData("text");
+        console.log('Dropped:',id);
+        console.log('On to', event.target.id);
+
+    }
+</script>
