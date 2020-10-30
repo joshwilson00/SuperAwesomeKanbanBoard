@@ -35,11 +35,9 @@ app.get('/project/:id', async (req, res) => {
         include: [{all : true, nested: true}], 
         logging: false 
     })
-    
     const todo = await Task.findAll({where : { 'ProjectId' : req.params.id , 'status' : 0}})
     const doing = await Task.findAll({where : { 'ProjectId' : req.params.id , 'status' : 1}})
     const done = await Task.findAll({where : { 'ProjectId' : req.params.id , 'status' : 2}})
-
     const users = await User.findAll({ logging: false })
     res.render('project', {project, todo, doing, done, users})
 })
@@ -84,7 +82,7 @@ app.post('/user/:userid/destroy', async (req, res) => {
 app.post('/project/create', async (req, res) => {
     console.log(req.body);
     await Project.create(req.body)
-    console.log('Prokect created')
+    console.log('Project created')
     res.redirect('back')
 })
 
