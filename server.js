@@ -115,9 +115,13 @@ app.post('/task/project/:projectid/create', async (req, res) => {
 
 // find from id and update task, redirect back
 app.post('/task/:taskid/update', async (req, res) => {
+    console.log(req.params.taskid);
     const task = await Task.findByPk(req.params.taskid,{ logging: false })
-    await task.update(req.body)
-    res.redirect('back')
+    await task.update(req.body);
+    const tasks = await Task.findAll();
+    console.log('About to redirect...');;
+    res.redirect('back');
+    //res.redirect(`/project/${task.ProjectId}`);
 })
 
 //find from id and destroy task, redirect back
