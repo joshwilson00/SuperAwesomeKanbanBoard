@@ -75,8 +75,6 @@ app.post('/user/:userid/destroy', async (req, res) => {
 
 
 
-
-
 //create project, redirect back
 app.post('/project/create', async (req, res) => {
     await Project.create(req.body)
