@@ -72,25 +72,32 @@ const view = (state) => `
 const viewTask = (task) => {
   return `
     <div id=${task.id} class="task" draggable=true ondragstart="app.run('onDragStart', event)">
-      ${viewUser(state)}
+        <select name="assignedUser" id="${task.id}" onchange="app.run('assignUser', event)">
+          <option ${!task.UserId ? 'selected': ''}>Please select a user</option>
+        ${state.users.map(user=>{
+          return `
+          <option value="${user.id}" ${task.UserId==user.id ? 'selected': ''}>${user.name}</option>
+          `
+        })}
+        </select>        
         <a href="/task/${task.id}/update" method="POST">&#128394</a>
         <a href="/task/${task.id}/destroy" method="POST">&#10060</a>
         <p>${task.description}</p>
+        ${showAvatar(task.UserId)}
     </div>
 `;
 };
-
-const viewUser = (state) =>{
-  return `
-  <select name="assignedUser" id="user">
-    <option selected>Please select a user</option>
-  ${state.users.map(user=>{
+const showAvatar = userId => {
+  if (userId){
+    const user = state.users.find(user => user.id === Number(userId));
     return `
-    <option value="${user.id}">${user.name}</option>
-    `
-  })}
-  </select>
-  `
+      <div id='userIMG'>
+        <img src="${user.avatar}" />
+      </div>
+    `  
+  }
+  return ``;
+
 }
 const update = {
   onDragStart: (state, event) => {
@@ -109,6 +116,20 @@ const update = {
         "Content-type": "application/json",
       },
       body: JSON.stringify({ status: event.target.id }),
+    });
+    return state;
+  },
+  assignUser: async (state, event) =>{
+    const task = state.tasks.find(task => task.id === Number(event.target.id));
+    const user = state.users.find(user => user.id === Number(event.target.value))
+    task.UserId = Number(event.target.value);
+    console.log(task);
+    await fetch(`/task/${event.target.id}/assign`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ UserId: task.UserId }),
     });
     return state;
   },
