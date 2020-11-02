@@ -31,24 +31,34 @@ const view = (state) => `
     }
   </div>
 </div>
-<div class="phoneView">
+<div class="phoneView ">
   <a href="/">Back to projects</a>
   <h1>${state.project.name}</h1>
   <form class="taskForm"action="/task/project/${state.project.id}/create" method="POST">
     <input type="text" id="description" name="description" placeholder="Task Description" required> <br>
     <input type="submit" value="Add Task">
   </form>
-  <select name="tasks" id="tasks" onchange="showTasks(event)">
-    <option value="to-do" selected>To-Do</option>
-    <option value="doing">Doing</option>
-    <option value="done">Done</option>
+  <select name="tasks" id="tasks" onchange="app.run('showTasks', event)">
+    <option value="to-do" ${state.taskType === "to-do" ? "selected" : ""}>To-Do</option>
+    <option value="doing" ${state.taskType === "doing" ? "selected" : ""}>Doing</option>
+    <option value="done" ${state.taskType === "done" ? "selected" : ""}>Done</option>
   </select>
-  ${viewTaskDiv}
+  ${viewTaskDiv(state)}
 </div>
-`;
+`
 
-const viewTaskDiv = (status) => {
-  if (status=="todo"){  
+const viewTask = (task) => {
+  return `
+    <div id=${task.id} class="task" draggable=true ondragstart="app.run('onDragStart', event)">
+        <a href="/task/${task.id}/update" method="POST">&#128394</a>
+        <a href="/task/${task.id}/destroy" method="POST">&#10060</a>
+        <p>${task.description}</p>
+    </div>
+`
+}
+
+const viewTaskDiv = (state) => {
+  if (state.taskType=="to-do"){  
     return `
     <div class="toDoTasksPhone">
       <h3>To-Do</h3>
@@ -58,7 +68,7 @@ const viewTaskDiv = (status) => {
         .join("")
       }
     </div>`
-  } else if (status=="doing"){
+  } else if (state.taskType=="doing"){
     return `
     <div class="doingTasks">
       <h3>Doing</h3>
@@ -80,15 +90,6 @@ const viewTaskDiv = (status) => {
     </div>`
   }
 }
-const viewTask = (task) => {
-  return `
-    <div id=${task.id} class="task" draggable=true ondragstart="app.run('onDragStart', event)">
-        <a href="/task/${task.id}/update" method="POST">&#128394</a>
-        <a href="/task/${task.id}/destroy" method="POST">&#10060</a>
-        <p>${task.description}</p>
-    </div>
-`;
-};
 
 const update = {
   onDragStart: (state, event) => {
@@ -110,8 +111,10 @@ const update = {
     });
     return state;
   },
-  showTasks: (event) => {
-    return event.target.value
+  showTasks: (state, event) => {
+    let taskType = event.target.value
+    state.taskType = taskType
+    return state
   }
 };
 
