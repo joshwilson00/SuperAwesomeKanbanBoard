@@ -121,9 +121,7 @@ const update = {
   },
   assignUser: async (state, event) =>{
     const task = state.tasks.find(task => task.id === Number(event.target.id));
-    const user = state.users.find(user => user.id === Number(event.target.value))
     task.UserId = Number(event.target.value);
-    console.log(task);
     await fetch(`/task/${event.target.id}/assign`, {
       method: "POST",
       headers: {
