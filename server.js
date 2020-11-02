@@ -117,7 +117,7 @@ app.post('/task/:taskid/update', async (req, res) => {
 })
 
 //find from id and destroy task, redirect back
-app.post('/task/:taskid/destroy', async (req, res) => {
+app.get('/task/:taskid/destroy', async (req, res) => {
     const task = await Task.findByPk(req.params.taskid)
     await task.destroy()
     res.redirect('back')
