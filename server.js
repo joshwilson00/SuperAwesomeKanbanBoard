@@ -79,9 +79,7 @@ app.post('/user/:userid/destroy', async (req, res) => {
 
 //create project, redirect back
 app.post('/project/create', async (req, res) => {
-    console.log(req.body);
     await Project.create(req.body)
-    console.log('Prokect created')
     res.redirect('back')
 })
 
@@ -113,10 +111,8 @@ app.post('/task/project/:projectid/create', async (req, res) => {
 
 // find from id and update task, redirect back
 app.post('/task/:taskid/update', async (req, res) => {
-    console.log(req.params.taskid);
     const task = await Task.findByPk(req.params.taskid,{ logging: false })
     await task.update(req.body);
-    const tasks = await Task.findAll();
     res.send();
 })
 

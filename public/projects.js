@@ -8,13 +8,6 @@ const view = (state) => `
         <input type="text" id="description" name="description" placeholder="Task Description" required> <br>
         <input type="submit" value="Add Task">
     </form>
-
-    <select name="tasks" id="tasks">
-        <option value="to-do">To-Do</option>
-        <option value="doing">Doing</option>
-        <option value="done">Done</option>
-    </select>
-
     <div id="0" class="toDoTasks" ondragover="event.preventDefault();" ondrop="app.run('onDrop', event)">
         <h3>To-Do</h3>
         ${state.tasks
