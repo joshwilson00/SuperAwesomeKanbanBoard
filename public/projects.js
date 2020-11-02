@@ -10,7 +10,7 @@ const view = (state) => `
     <h3>To-Do</h3>
     ${state.tasks
       .filter((task) => task.status === 0)
-      .map(viewTask)
+      .map(viewTaskDesktop)
       .join("")
     }
   </div>
@@ -18,7 +18,7 @@ const view = (state) => `
     <h3>Doing</h3>
     ${state.tasks
       .filter((task) => task.status === 1)
-      .map(viewTask)
+      .map(viewTaskDesktop)
       .join("")
     }
   </div>
@@ -26,12 +26,12 @@ const view = (state) => `
     <h3>Done</h3>
     ${state.tasks
       .filter((task) => task.status === 2)
-      .map(viewTask)
+      .map(viewTaskDesktop)
       .join("")
     }
   </div>
 </div>
-<div class="phoneView ">
+<div class="phoneView">
   <a href="/">Back to projects</a>
   <h1>${state.project.name}</h1>
   <form class="taskForm"action="/task/project/${state.project.id}/create" method="POST">
@@ -47,14 +47,40 @@ const view = (state) => `
 </div>
 `
 
-const viewTask = (task) => {
+const viewTaskDesktop = (task) => {
   return `
     <div id=${task.id} class="task" draggable=true ondragstart="app.run('onDragStart', event)">
-        <a href="/task/${task.id}/update" method="POST">&#128394</a>
         <a href="/task/${task.id}/destroy" method="POST">&#10060</a>
         <p>${task.description}</p>
     </div>
 `
+}
+
+const viewTaskPhone = (task) => {
+  if (task.status===0) {
+    return `
+      <div id=${task.id} class="task">
+        <a id=${task.id} href="javascript:;" onclick="app.run('markInProgress', event)">Mark in Progress</a>
+        <a href="/task/${task.id}/destroy" method="POST">&#10060</a>
+        <p>${task.description}</p>
+      </div>
+    `
+  } else if (task.status===1) {
+    return `
+    <div id=${task.id} class="task">
+      <a id=${task.id} href="javascript:;" onclick="app.run('markDone', event)">Mark Done</a>
+      <a href="/task/${task.id}/destroy" method="POST">&#10060</a>
+      <p>${task.description}</p>
+    </div>
+  `
+  } else {
+    return `
+    <div id=${task.id} class="task">
+      <a href="/task/${task.id}/destroy" method="POST">&#10060</a>
+      <p>${task.description}</p>
+    </div>
+  `
+  } 
 }
 
 const viewTaskDiv = (state) => {
@@ -64,7 +90,7 @@ const viewTaskDiv = (state) => {
       <h3>To-Do</h3>
       ${state.tasks
         .filter((task) => task.status === 0)
-        .map(viewTask)
+        .map(viewTaskPhone)
         .join("")
       }
     </div>`
@@ -74,7 +100,7 @@ const viewTaskDiv = (state) => {
       <h3>Doing</h3>
       ${state.tasks
         .filter((task) => task.status === 1)
-        .map(viewTask)
+        .map(viewTaskPhone)
         .join("")
       }
     </div>`
@@ -84,7 +110,7 @@ const viewTaskDiv = (state) => {
       <h3>Done</h3>
       ${state.tasks
         .filter((task) => task.status === 2)
-        .map(viewTask)
+        .map(viewTaskPhone)
         .join("")
       }
     </div>`
@@ -112,10 +138,35 @@ const update = {
     return state;
   },
   showTasks: (state, event) => {
+    event.preventDefault();
     let taskType = event.target.value
     state.taskType = taskType
     return state
+  },
+  markInProgress: async (state, event) => {
+    let id = event.target.id
+    let task = state.tasks.find((task) => task.id == Number(id))
+    task.status = 1
+    await fetch(`/task/${id}/update`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ status: task.status }),
+    })
+  },
+  markDone: async (state, event) => {
+    let id = event.target.id
+    let task = state.tasks.find((task) => task.id == Number(id))
+    task.status = 2
+    await fetch(`/task/${id}/update`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ status: task.status }),
+    })
   }
-};
+}
 
 app.start("projects", state, view, update);
