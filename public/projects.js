@@ -1,4 +1,42 @@
 const view = (state) => `
+    <div class="homeView hidden">
+      <a href="/">Back to projects</a>
+      <h1>${state.project.name}</h1>
+      <form class="taskForm"action="/task/project/${
+        state.project.id
+      }/create" method="POST">
+        <input type="text" id="description" name="description" placeholder="Task Description" required> <br>
+        <input type="submit" value="Add Task">
+    </form>
+
+    <select name="tasks" id="tasks">
+        <option value="to-do">To-Do</option>
+        <option value="doing">Doing</option>
+        <option value="done">Done</option>
+    </select>
+
+    <div id="0" class="toDoTasks" ondragover="event.preventDefault();" ondrop="app.run('onDrop', event)">
+        <h3>To-Do</h3>
+        ${state.tasks
+          .filter((task) => task.status === 0)
+          .map(viewTask)
+          .join("")}
+    </div>
+    <div id="1" class="doingTasks" ondragover="event.preventDefault();" ondrop="app.run('onDrop', event)">
+        <h3>Doing</h3>
+        ${state.tasks
+          .filter((task) => task.status === 1)
+          .map(viewTask)
+          .join("")}
+    </div>
+    <div id="2" class="doneTasks" ondragover="event.preventDefault();" ondrop="app.run('onDrop', event)">
+        <h3>Done</h3>
+        ${state.tasks
+          .filter((task) => task.status === 2)
+          .map(viewTask)
+          .join("")}
+    </div>
+    </div>
     <div class="phoneView">
         <a href="/">Back to projects</a>
         <h1>${state.project.name}</h1>
@@ -17,15 +55,24 @@ const view = (state) => `
 
         <div id="0" class="toDoTasks" ondragover="event.preventDefault();" ondrop="app.run('onDrop', event)">
             <h3>To-Do</h3>
-            ${state.tasks.filter(task => task.status === 0).map(viewTask).join("")}
+            ${state.tasks
+              .filter((task) => task.status === 0)
+              .map(viewTask)
+              .join("")}
         </div>
         <div id="1" class="doingTasks" ondragover="event.preventDefault();" ondrop="app.run('onDrop', event)">
             <h3>Doing</h3>
-            ${state.tasks.filter(task => task.status === 1).map(viewTask).join("")}
+            ${state.tasks
+              .filter((task) => task.status === 1)
+              .map(viewTask)
+              .join("")}
         </div>
         <div id="2" class="doneTasks" ondragover="event.preventDefault();" ondrop="app.run('onDrop', event)">
             <h3>Done</h3>
-            ${state.tasks.filter(task => task.status === 2).map(viewTask).join("")}
+            ${state.tasks
+              .filter((task) => task.status === 2)
+              .map(viewTask)
+              .join("")}
         </div>
     </div>
     `;
