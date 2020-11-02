@@ -1,3 +1,16 @@
 .hidden {
     display: none;
 }
+.doingTasks{
+    padding-bottom: 10rem;
+    background-color: lightblue;
+}
+
+.toDoTasks{
+    padding-bottom: 10rem;
+    background-color: lightgray;
+}
+.doneTasks{
+    padding-bottom: 10rem;
+    background-color: lightpink;
+}
