@@ -36,11 +36,9 @@ app.get('/project/:id', async (req, res) => {
         logging: false 
     })
     
-    const todo = await Task.findAll({where : { 'ProjectId' : req.params.id , 'status' : 0}})
-    const doing = await Task.findAll({where : { 'ProjectId' : req.params.id , 'status' : 1}})
-    const done = await Task.findAll({where : { 'ProjectId' : req.params.id , 'status' : 2}})
     const users = await User.findAll({ logging: false })
-    res.render('project', {project: JSON.stringify(project), todo: JSON.stringify(todo), doing: JSON.stringify(doing), done: JSON.stringify(done), users: JSON.stringify(users)})
+    const tasks = await Task.findAll();
+    res.render('project', {tasks: JSON.stringify(tasks), users: JSON.stringify(users), project: JSON.stringify(project)});
 })
 
 
@@ -119,9 +117,7 @@ app.post('/task/:taskid/update', async (req, res) => {
     const task = await Task.findByPk(req.params.taskid,{ logging: false })
     await task.update(req.body);
     const tasks = await Task.findAll();
-    console.log('About to redirect...');;
-    res.redirect('back');
-    //res.redirect(`/project/${task.ProjectId}`);
+    res.send();
 })
 
 //find from id and destroy task, redirect back
