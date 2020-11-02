@@ -50,8 +50,18 @@ const view = (state) => `
 const viewTaskDesktop = (task) => {
   return `
     <div id=${task.id} class="task" draggable=true ondragstart="app.run('onDragStart', event)">
+        <select name="assignedUser" id="${task.id}" onchange="app.run('assignUser', event)">
+          <option ${!task.UserId ? 'selected': ''}>Please select a user</option>
+        ${state.users.map(user=>{
+          return `
+          <option value="${user.id}" ${task.UserId==user.id ? 'selected': ''}>${user.name}</option>
+          `
+        })}
+        </select>        
+        <a href="/task/${task.id}/update" method="POST">&#128394</a>
         <a href="/task/${task.id}/destroy" method="POST">&#10060</a>
         <p>${task.description}</p>
+        ${showAvatar(task.UserId)}
     </div>
 `
 }
@@ -116,6 +126,17 @@ const viewTaskDiv = (state) => {
     </div>`
   }
 }
+const showAvatar = userId => {
+  if (userId){
+    const user = state.users.find(user => user.id === Number(userId));
+    return `
+      <div id='userIMG'>
+        <img src="${user.avatar}" />
+      </div>
+    `  
+  }
+  return ``
+}
 
 const update = {
   onDragStart: (state, event) => {
@@ -143,6 +164,17 @@ const update = {
     state.taskType = taskType
     return state
   },
+  assignUser: async (state, event) =>{
+    const task = state.tasks.find(task => task.id === Number(event.target.id));
+    task.UserId = Number(event.target.value);
+    await fetch(`/task/${event.target.id}/assign`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ status: task.status }),
+    })
+  },
   markInProgress: async (state, event) => {
     let id = event.target.id
     let task = state.tasks.find((task) => task.id == Number(id))
@@ -152,8 +184,9 @@ const update = {
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ status: task.status }),
-    })
+      body: JSON.stringify({ UserId: task.UserId }),
+    });
+    return state;
   },
   markDone: async (state, event) => {
     let id = event.target.id
@@ -168,5 +201,4 @@ const update = {
     })
   }
 }
-
 app.start("projects", state, view, update);
