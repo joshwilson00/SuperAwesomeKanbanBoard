@@ -72,6 +72,7 @@ const view = (state) => `
 const viewTask = (task) => {
   return `
     <div id=${task.id} class="task" draggable=true ondragstart="app.run('onDragStart', event)">
+      ${viewUser(state)}
         <a href="/task/${task.id}/update" method="POST">&#128394</a>
         <a href="/task/${task.id}/destroy" method="POST">&#10060</a>
         <p>${task.description}</p>
@@ -79,6 +80,18 @@ const viewTask = (task) => {
 `;
 };
 
+const viewUser = (state) =>{
+  return `
+  <select name="assignedUser" id="user">
+    <option selected>Please select a user</option>
+  ${state.users.map(user=>{
+    return `
+    <option value="${user.id}">${user.name}</option>
+    `
+  })}
+  </select>
+  `
+}
 const update = {
   onDragStart: (state, event) => {
     event.dataTransfer.setData("text", event.target.id);
