@@ -2,9 +2,9 @@ const view = (state) => `
 <div class="desktopView">
   <div class="nav">
     <a href="/">Back to projects</a>
-    <form class="taskForm"action="/task/project/${state.project.id}/create" method="POST">
+    <form class="taskForm" action="/task/project/${state.project.id}/create" method="POST">
       <input type="text" id="description" name="description" placeholder="Task Description" required> <br>
-      <input type="submit" value="Add Task">
+      <input class="button" type="submit" value="Add Task">
     </form>
   </div>
   <h1>${state.project.name}</h1>
@@ -41,7 +41,7 @@ const viewTaskDesktop = (task) => {
   return `
     <div id=${task.id} class="task" draggable=true ondragstart="app.run('onDragStart', event)">
       <div class="taskEdit">
-        <select name="${task.id}" onchange="app.run('assignUser', event)">
+        <select class="button" name="${task.id}" onchange="app.run('assignUser', event)">
           <option ${!task.UserId ? 'selected': ''}>Assign User</option>
         ${state.users.map(user=>{
           return `
