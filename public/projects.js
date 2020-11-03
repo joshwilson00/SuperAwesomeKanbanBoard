@@ -52,33 +52,6 @@ const viewTaskDesktop = (task) => {
 `
 }
 
-const viewTaskPhone = (task) => {
-  if (task.status===0) {
-    return `
-      <div id=${task.id} class="task">
-        <a id=${task.id} href="javascript:;" onclick="app.run('markInProgress', event)">Mark in Progress</a>
-        <a href="/task/${task.id}/destroy" method="POST">&#10060</a>
-        <p>${task.description}</p>
-      </div>
-    `
-  } else if (task.status===1) {
-    return `
-    <div id=${task.id} class="task">
-      <a id=${task.id} href="javascript:;" onclick="app.run('markDone', event)">Mark Done</a>
-      <a href="/task/${task.id}/destroy" method="POST">&#10060</a>
-      <p>${task.description}</p>
-    </div>
-  `
-  } else {
-    return `
-    <div id=${task.id} class="task">
-      <a href="/task/${task.id}/destroy" method="POST">&#10060</a>
-      <p>${task.description}</p>
-    </div>
-  `
-  } 
-}
-
 const viewTaskDiv = (state) => {
   if (state.taskType=="to-do"){  
     return `
@@ -127,7 +100,6 @@ const showAvatar = userId => {
 const update = {
   onDragStart: (state, event) => {
     event.dataTransfer.setData("text", event.target.id);
-    console.log("Starting to drag", event.target.id);
     return state;
   },
   onDrop: async (state, event) => {
@@ -141,7 +113,6 @@ const update = {
     } else {
         task.status = 2;
     }
-    console.log(task);
     await fetch(`/task/${id}/update`, {
       method: "POST",
       headers: {
@@ -150,12 +121,6 @@ const update = {
       body: JSON.stringify({ status: task.status }),
     });
     return state;
-  },
-  showTasks: (state, event) => {
-    event.preventDefault();
-    let taskType = event.target.value
-    state.taskType = taskType
-    return state
   },
   assignUser: async (state, event) =>{
     const task = state.tasks.find(task => task.id === Number(event.target.id));
@@ -168,42 +133,5 @@ const update = {
       body: JSON.stringify({ status: task.status }),
     })
   },
-  markInProgress: async (state, event) => {
-    let id = event.target.id
-    let task = state.tasks.find((task) => task.id == Number(id))
-    task.status = 1
-    await fetch(`/task/${id}/update`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ status: task.status }),
-    });
-    console.log(state);
-    return state;
-  },
-  assignUser: async (state, event, task) =>{
-    task.UserId = Number(event.target.value);
-    await fetch(`/task/${event.target.id}/assign`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ UserId: task.UserId }),
-    });
-    return state;
-  },
-  markDone: async (state, event) => {
-    let id = event.target.id
-    let task = state.tasks.find((task) => task.id == Number(id))
-    task.status = 2
-    await fetch(`/task/${id}/update`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ status: task.status }),
-    })
-  }
 }
 app.start("projects", state, view, update);
