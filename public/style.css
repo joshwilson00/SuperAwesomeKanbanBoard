@@ -225,6 +225,9 @@ a:link{
 
 footer {
     text-align: center;
+    margin: auto;
+    position: static;
+    bottom: 0;
 }
 
 @media screen and (min-width: 40em) {
