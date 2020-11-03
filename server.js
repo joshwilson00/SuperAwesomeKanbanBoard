@@ -37,7 +37,7 @@ app.get('/project/:id', async (req, res) => {
     })
     
     const users = await User.findAll({ logging: false })
-    const tasks = await Task.findAll();
+    const tasks = await Task.findAll({ where : {ProjectId : req.params.projectid }});
     res.render('project', {tasks: JSON.stringify(tasks), users: JSON.stringify(users), project: JSON.stringify(project)});
 })
 
