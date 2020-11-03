@@ -1,10 +1,14 @@
-<div class="desktopView hidden">
-    <h1>Projects</h1>
-            <form class="userForm"action="/user/create" method="POST">
-                <input type="text" id="name" name="name" placeholder="Name" required> <br>
-                <input type="url" id="avatar" name="avatar" placeholder="Avatar Url" required> <br>
-                <input type="submit" value="Add User">
-            </form>
+<div class="desktopView">
+    <div class="topBar">
+        <h2>Super Awesome Kanban Board</h2>
+    </div>
+    <div class="userFormBar">
+        <form class="userForm"action="/user/create" method="POST">
+            <input type="text" id="name" name="name" placeholder="Name" required> <br>
+            <input type="url" id="avatar" name="avatar" placeholder="Avatar Url" required> <br>
+            <input class="button" type="submit" value="Add User">
+        </form>
+    </div>
     <section class="gallery">
         {{#each projects}}
             <a href="./project/{{this.id}}">
@@ -13,18 +17,20 @@
                 </div>
             </a>
         {{/each}}
-        <div class="galleryItem">
-            <h3>Add a project:</h3>
-            <form class="addProject" action="/project/create" method="POST">
-                <input type="text" id="name" name="name" placeholder="Project Name" required> <br>
-                <input type="url" id="image" name="image" placeholder="Image Url" required> <br>
-                <input type="submit" value="Add Project">
-            </form>
+        <div class="galleryProject">
+            <div class="addProject">
+                <h3>Add a project:</h3>
+                <form class="addProject" action="/project/create" method="POST">
+                    <input type="text" id="name" name="name" placeholder="Project Name" required> <br>
+                    <input type="url" id="image" name="image" placeholder="Image Url" required> <br>
+                    <input class="button" type="submit" value="Add Project">
+                </form>
+            </div>
         </div>
     </section>
 </div>
 
-<div class= "phoneView">
+<div class= "phoneView" hidden>
     <h1>Projects</h1>
     <a href="javascript:;" onclick="showUserForm()">Add User</a>
     <a href="javascript:;" onclick="hideUserForm()"></a>
