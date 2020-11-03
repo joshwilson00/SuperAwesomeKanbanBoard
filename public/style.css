@@ -30,6 +30,12 @@ body {
     direction: ltr;
     gap: .5vh;
 }
+.userForm * {
+    border-radius: .5rem;
+    font-size: 100%;
+    border: #0E192F solid 1px;
+}
+
 .button{
     color: white;
     background-color: #0E192F;
