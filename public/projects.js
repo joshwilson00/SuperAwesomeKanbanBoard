@@ -1,34 +1,38 @@
 const view = (state) => `
 <div class="desktopView">
-  <a href="/">Back to projects</a>
+  <div class="nav">
+    <a href="/">Back to projects</a>
+    <form class="taskForm"action="/task/project/${state.project.id}/create" method="POST">
+      <input type="text" id="description" name="description" placeholder="Task Description" required> <br>
+      <input type="submit" value="Add Task">
+    </form>
+  </div>
   <h1>${state.project.name}</h1>
-  <form class="taskForm"action="/task/project/${state.project.id}/create" method="POST">
-    <input type="text" id="description" name="description" placeholder="Task Description" required> <br>
-    <input type="submit" value="Add Task">
-  </form>
-  <div id="todo" class="toDoTasks" ondragover="event.preventDefault();" ondrop="app.run('onDrop', event)">
-    <h3>To-Do</h3>
-    ${state.tasks
-      .filter((task) => task.status === 0)
-      .map(viewTaskDesktop)
-      .join("")
-    }
-  </div>
-  <div id="doing" class="doingTasks" ondragover="event.preventDefault();" ondrop="app.run('onDrop', event)">
-    <h3>Doing</h3>
-    ${state.tasks
-      .filter((task) => task.status === 1)
-      .map(viewTaskDesktop)
-      .join("")
-    }
-  </div>
-  <div id="done" class="doneTasks" ondragover="event.preventDefault();" ondrop="app.run('onDrop', event)">
-    <h3>Done</h3>
-    ${state.tasks
-      .filter((task) => task.status === 2)
-      .map(viewTaskDesktop)
-      .join("")
-    }
+  <div class="allTasks">
+    <div id="todo" class="tasks toDoTasks" ondragover="event.preventDefault();" ondrop="app.run('onDrop', event)">
+      <h3>To-Do</h3>
+      ${state.tasks
+        .filter((task) => task.status === 0)
+        .map(viewTaskDesktop)
+        .join("")
+      }
+    </div>
+    <div id="doing" class="tasks doingTasks" ondragover="event.preventDefault();" ondrop="app.run('onDrop', event)">
+      <h3>Doing</h3>
+      ${state.tasks
+        .filter((task) => task.status === 1)
+        .map(viewTaskDesktop)
+        .join("")
+      }
+    </div>
+    <div id="done" class="tasks doneTasks" ondragover="event.preventDefault();" ondrop="app.run('onDrop', event)">
+      <h3>Done</h3>
+      ${state.tasks
+        .filter((task) => task.status === 2)
+        .map(viewTaskDesktop)
+        .join("")
+      }
+    </div>
   </div>
 </div>
 `
@@ -36,18 +40,19 @@ const view = (state) => `
 const viewTaskDesktop = (task) => {
   return `
     <div id=${task.id} class="task" draggable=true ondragstart="app.run('onDragStart', event)">
+      <div class="taskEdit">
         <select name="assignedUser"  onchange="app.run('assignUser', event, task)">
-          <option ${!task.UserId ? 'selected': ''}>Please select a user</option>
+          <option ${!task.UserId ? 'selected': ''}>Assign User</option>
         ${state.users.map(user=>{
           return `
           <option value="${user.id}" ${task.UserId==user.id ? 'selected': ''}>${user.name}</option>
           `
         })}
-        </select>        
-        <a href="/task/${task.id}/update" method="POST">&#128394</a>
+        </select>      
         <a href="/task/${task.id}/destroy" method="POST">&#10060</a>
-        <p>${task.description}</p>
-        ${showAvatar(task.UserId)}
+      </div> 
+      <p>${task.description}</p>
+      ${showAvatar(task.UserId)}
     </div>
 `
 }

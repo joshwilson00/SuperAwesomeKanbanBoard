@@ -1,16 +1,74 @@
-.hidden {
-    display: none;
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
-.doingTasks{
-    padding-bottom: 10rem;
-    background-color: lightblue;
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    color: #0E192F;
+    background-color: #E7EAEF
+}
+
+form {
+    text-decoration: none;
+
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+h1, h3 {
+    text-align: center;
+}
+
+.allTasks {
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+.tasks {
+    width: 30%;
+    height: auto;
+}
+
+.task {
+    border: 1px solid #0E192F;
+    width: 95%;
+    margin: 0.5rem auto;
+}
+
+.taskEdit {
+    display: flex;
+    justify-content: space-between;
+}
+
+.taskEdit a {
+    text-decoration: none;
+}
+.task p {
+    text-align: center;
 }
 
 .toDoTasks{
-    padding-bottom: 10rem;
-    background-color: lightgray;
+    padding-bottom: 1rem;
+    background-color: #779FCF;
 }
+
+.doingTasks{
+    padding-bottom: 1rem;
+    background-color: #507EB9;
+}
+
+
 .doneTasks{
-    padding-bottom: 10rem;
-    background-color: lightpink;
+    padding-bottom: 1rem;
+    background-color: #1F487E;
+}
+
+.hidden {
+    display: none;
 }
