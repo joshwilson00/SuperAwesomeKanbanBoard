@@ -97,8 +97,9 @@ const update = {
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ status: task.status }),
-    })
+      body: JSON.stringify({ UserId: task.UserId }),
+    });
+    return state;
   },
 }
 app.start("projects", state, view, update);
