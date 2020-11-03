@@ -36,7 +36,7 @@ const view = (state) => `
 const viewTaskDesktop = (task) => {
   return `
     <div id=${task.id} class="task" draggable=true ondragstart="app.run('onDragStart', event)">
-        <select name="assignedUser"  onchange="app.run('assignUser', event, task)">
+        <select name="${task.id}" onchange="app.run('assignUser', event)">
           <option ${!task.UserId ? 'selected': ''}>Please select a user</option>
         ${state.users.map(user=>{
           return `
@@ -89,9 +89,10 @@ const update = {
     return state;
   },
   assignUser: async (state, event) =>{
-    const task = state.tasks.find(task => task.id === Number(event.target.id));
+    const task = state.tasks.find(task => task.id === Number(event.target.name));
     task.UserId = Number(event.target.value);
-    await fetch(`/task/${event.target.id}/assign`, {
+    console.log(task);
+    await fetch(`/task/${task.id}/assign`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
