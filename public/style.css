@@ -34,12 +34,18 @@ form {
     gap: 0.5vh;
 }
 
+.taskForm * {
+    border-radius: .5rem;
+    font-size: 100%;
+    border: #0E192F solid 1px;
+}
+
 .button {
     background-color: #0E192F;
     color: #E7EAEF;
     border: none;
     padding: 1vh;
-    border-radius: 5px;
+    border-radius: .5rem;
 }
 
 h1, h3 {
@@ -56,6 +62,10 @@ h1, h3 {
     width: 30%;
     height: auto;
     min-height: 50vh;
+}
+
+.tasks h3 {
+    padding: 1vh;
 }
 
 .task {
@@ -77,6 +87,8 @@ h1, h3 {
 
 .task p {
     text-align: center;
+    padding: 0.5vh 0 1vh;
+    color: #E7EAEF;
 }
 
 img {
@@ -115,6 +127,9 @@ img {
     border: none;
 }
 
+input {
+    padding: 0.5vh;
+}
 
 .gallery{
     height: 29vw;
@@ -135,11 +150,13 @@ img {
     background-color: #E7EAEF;
     border-radius: 30px;
     color: #0E192F;
-    padding-top: 2vh;
-    margin-top: 0vh;
+    margin: auto;
     border: #0E192F solid 2px;
     height: 6vh;
     font-size: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 a:link{
