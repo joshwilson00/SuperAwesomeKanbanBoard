@@ -7,23 +7,21 @@
 .hidden{
     display: none;
 }
-body{
-    background-color: #779FCF;
-    margin: 0;
+body {
+    font-family: 'Quicksand', sans-serif;
+    color: #0E192F;
+    background-color: #E7EAEF
 }
 .topBar{
     text-align: center;
-    background-color: #1F487E;
     padding: .5vh;
     font-size: 3vh;
-    color: white;
 }
 .topBar h2{
     margin: 0;
 }
 .userFormBar{
     padding: 1vh;
-    background-color: #507EB9;
     display: flex;
     direction: rtl;
 }
@@ -32,19 +30,24 @@ body{
     direction: ltr;
     gap: .5vh;
 }
+.button{
+    color: white;
+    background-color: #0E192F;
+    border: none;
+}
 
 
 .gallery{
-    height: 32vh;
+    height: 29vw;
     margin: 3vh;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 3vh;
 }
 .galleryItem{
     text-align: center;
     border-radius: 5%;
-    height: 30vh;
+    height: 28vw;
     transition: 1s;
     box-shadow: 5px 5px 5px rgba(110, 110, 110, 0.452);
     border: #0E192F solid 1px;
@@ -53,12 +56,15 @@ body{
     color: white;
     font-size: 3vh;
 }
+a:link{
+    text-decoration: none;
+}
 .galleryItem:hover{
     transform-origin: center;
     transform: scale(1.05, 1.05);
 }
 .galleryProject{
-    height: 30vh;
+    height: 28vw;
     border: #0E192F solid 1px;
     background-color: white;
     border-radius: 5%;
