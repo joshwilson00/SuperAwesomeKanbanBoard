@@ -126,7 +126,7 @@ app.get('/task/:taskid/destroy', async (req, res) => {
 //assign userid from body to task from id, redirect back
 app.post('/task/:taskid/assign', async (req, res) => {
     const task = await Task.findByPk(req.params.taskid,{ logging: false })
-    await task.update(req.body.userid)
+    await task.update({UserId: req.body.UserId});
     res.redirect('back')
 })
 
