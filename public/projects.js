@@ -41,14 +41,14 @@ const viewTaskDesktop = (task) => {
   return `
     <div id=${task.id} class="task" draggable=true ondragstart="app.run('onDragStart', event)">
       <div class="taskEdit">
-        <select name="assignedUser"  onchange="app.run('assignUser', event, task)">
+        <select name="${task.id}" onchange="app.run('assignUser', event)">
           <option ${!task.UserId ? 'selected': ''}>Assign User</option>
         ${state.users.map(user=>{
           return `
           <option value="${user.id}" ${task.UserId==user.id ? 'selected': ''}>${user.name}</option>
           `
         })}
-        </select>      
+        </select> 
         <a href="/task/${task.id}/destroy" method="POST">&#10060</a>
       </div> 
       <p>${task.description}</p>
@@ -94,15 +94,17 @@ const update = {
     return state;
   },
   assignUser: async (state, event) =>{
-    const task = state.tasks.find(task => task.id === Number(event.target.id));
+    const task = state.tasks.find(task => task.id === Number(event.target.name));
     task.UserId = Number(event.target.value);
-    await fetch(`/task/${event.target.id}/assign`, {
+    console.log(task);
+    await fetch(`/task/${task.id}/assign`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ status: task.status }),
-    })
+      body: JSON.stringify({ UserId: task.UserId }),
+    });
+    return state;
   },
 }
 app.start("projects", state, view, update);
