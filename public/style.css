@@ -46,14 +46,20 @@ body {
 }
 .galleryItem{
     text-align: center;
-    border-radius: 5%;
+    border-radius: 30px;
     height: 28vw;
-    transition: 1s;
     box-shadow: 5px 5px 5px rgba(110, 110, 110, 0.452);
-    border: #0E192F solid 1px;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .galleryItem h3{
-    color: white;
+    background-color: #E7EAEF;
+    border-radius: 30px;
+    color: #0E192F;
+    padding-top: 2vh;
+    margin-top: 0vh;
+    border: #0E192F solid 2px;
+    height: 6vh;
     font-size: 3vh;
 }
 a:link{
@@ -62,18 +68,39 @@ a:link{
 .galleryItem:hover{
     transform-origin: center;
     transform: scale(1.05, 1.05);
+    transition: 1s;
 }
 .galleryProject{
     height: 28vw;
-    border: #0E192F solid 1px;
-    background-color: white;
-    border-radius: 5%;
+    border: #0E192F solid 2px;
+    border-radius: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 5px 5px 5px rgba(110, 110, 110, 0.473);
 }
 .addProject{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 1vh;
+}
+
+.addProject input{
+    border-radius: 5px;
+    border: #0E192F solid 1px;
+    font-size: 1.5vh;
+}
+
+.addProject h3{
+    font-size: 4vh;
+}
+
+.addProject .button{
+    margin-left: 15%;
+    padding: .25vh;
+    width: 70%;
+    margin-bottom: 3vh;
 }
 
 
