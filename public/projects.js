@@ -51,40 +51,6 @@ const viewTaskDesktop = (task) => {
     </div>
 `
 }
-
-const viewTaskDiv = (state) => {
-  if (state.taskType=="to-do"){  
-    return `
-    <div class="toDoTasksPhone">
-      <h3>To-Do</h3>
-      ${state.tasks
-        .filter((task) => task.status === 0)
-        .map(viewTaskPhone)
-        .join("")
-      }
-    </div>`
-  } else if (state.taskType=="doing"){
-    return `
-    <div class="doingTasks">
-      <h3>Doing</h3>
-      ${state.tasks
-        .filter((task) => task.status === 1)
-        .map(viewTaskPhone)
-        .join("")
-      }
-    </div>`
-  } else {
-    return `
-    <div class="doingTasks">
-      <h3>Done</h3>
-      ${state.tasks
-        .filter((task) => task.status === 2)
-        .map(viewTaskPhone)
-        .join("")
-      }
-    </div>`
-  }
-}
 const showAvatar = userId => {
   if (userId){
     const user = state.users.find(user => user.id === Number(userId));
