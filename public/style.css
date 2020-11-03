@@ -91,6 +91,10 @@ a:link{
     background-color: lightpink;
 }
 
+footer {
+    text-align: center;
+}
+
 @media screen and (min-width: 40em) {
 
     .desktopView{
