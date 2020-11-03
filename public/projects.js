@@ -39,28 +39,26 @@ const view = (state) => `
             <input type="text" id="description" name="description" placeholder="Task Description" required> <br>
             <input type="submit" value="Add Task">
         </form>
-
         <select name="tasks" id="tasks">
             <option value="to-do">To-Do</option>
             <option value="doing">Doing</option>
             <option value="done">Done</option>
         </select>
-
-        <div id="0" class="toDoTasks" ondragover="event.preventDefault();" ondrop="app.run('onDrop', event)">
+        <div id="todo" class="toDoTasks" ondragover="event.preventDefault();" ondrop="app.run('onDrop', event)">
             <h3>To-Do</h3>
             ${state.tasks
               .filter((task) => task.status === 0)
               .map(viewTask)
               .join("")}
         </div>
-        <div id="1" class="doingTasks" ondragover="event.preventDefault();" ondrop="app.run('onDrop', event)">
+        <div id="doing" class="doingTasks" ondragover="event.preventDefault();" ondrop="app.run('onDrop', event)">
             <h3>Doing</h3>
             ${state.tasks
               .filter((task) => task.status === 1)
               .map(viewTask)
               .join("")}
         </div>
-        <div id="2" class="doneTasks" ondragover="event.preventDefault();" ondrop="app.run('onDrop', event)">
+        <div id="done" class="doneTasks" ondragover="event.preventDefault();" ondrop="app.run('onDrop', event)">
             <h3>Done</h3>
             ${state.tasks
               .filter((task) => task.status === 2)
@@ -109,13 +107,19 @@ const update = {
     event.preventDefault();
     const id = event.dataTransfer.getData("text");
     const task = state.tasks.find((task) => task.id == Number(id));
-    task.status = Number(event.target.id);
+    if (event.target.id == 'todo') {
+        task.status = 0;
+    } else if (event.target.id == 'doing') {
+        task.status = 1;
+    } else {
+        task.status = 2;
+    }
     await fetch(`/task/${id}/update`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ status: event.target.id }),
+      body: JSON.stringify({ status: task.status }),
     });
     return state;
   },
