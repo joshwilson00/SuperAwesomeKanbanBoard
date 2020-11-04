@@ -128,7 +128,20 @@ app.post('/task/:taskid/assign', async (req, res) => {
     res.redirect('back')
 })
 
-
+app.get('/users', async (req, res)=>{
+    const users = await User.findAll();
+    res.render('users', {users: JSON.stringify(users)});
+})
+app.get('/users/:id/delete', async (req, res)=>{
+    const user = await User.findOne({where: {id: req.params.id}});
+    await user.destroy();
+    res.send();
+})
+app.post('/users/:id/update', async (req, res)=>{
+    const user = await User.findOne({where: {id: req.params.id}});
+    await user.update(req.body);
+    res.redirect('back');
+})
 
 //host of port 3000
 app.listen(process.env.PORT, async () => {
