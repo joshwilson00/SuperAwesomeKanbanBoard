@@ -34,6 +34,9 @@ const view = (state) => `
       }
     </div>
   </div>
+  <div class="container">
+      <div class="fa fa-trash w3-jumbo delete" ondragover="event.preventDefault();" ondrop="app.run('delete', event)"></div>
+  </div>
 </div>
 `
 
@@ -91,6 +94,14 @@ const update = {
       },
       body: JSON.stringify({ status: task.status }),
     });
+    return state;
+  },
+  delete: async (state, event) =>{
+    event.preventDefault();
+    const id = event.dataTransfer.getData("text");
+    const index = state.tasks.findIndex((task) => task.id == Number(id));
+    state.tasks.splice(index, 1);
+    await fetch(`/task/${id}/destroy`);
     return state;
   },
   assignUser: async (state, event) =>{

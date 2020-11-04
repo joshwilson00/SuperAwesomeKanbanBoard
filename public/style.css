@@ -230,6 +230,19 @@ footer {
     bottom: 0;
 }
 
+.container {
+    margin-top: 1rem;
+    text-align: center;
+}
+.delete {
+    padding: 2rem;
+    background-color: white;
+    border-radius: 40%;
+}
+.delete:hover {
+    background-color: red;
+}
+
 @media screen and (min-width: 40em) {
     .desktopView{
         display: block;
