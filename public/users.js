@@ -55,6 +55,10 @@ const update = {
             await fetch(`/users/${event.target.name}/delete`);
             return state
         }
+    },
+    updateUsers: (state, users) =>{
+        state.users = users;
+        return state;
     }
 }
 
