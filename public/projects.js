@@ -35,7 +35,8 @@ const view = (state) => `
     </div>
   </div>
   <div class="container">
-      <div class="fa fa-trash w3-jumbo delete" ondragover="event.preventDefault();" ondrop="app.run('delete', event)"></div>
+      <div class="fa fa-trash w3-jumbo delete" ondragover="event.preventDefault();" ondrop="app.run('deleteTask', event)"></div>
+      <button class="removeProject" onclick="app.run('deleteProject', event)">Delete Project</button>
   </div>
 </div>
 `
@@ -96,7 +97,7 @@ const update = {
     });
     return state;
   },
-  delete: async (state, event) =>{
+  deleteTask: async (state, event) =>{
     event.preventDefault();
     const id = event.dataTransfer.getData("text");
     const index = state.tasks.findIndex((task) => task.id == Number(id));
@@ -116,6 +117,13 @@ const update = {
       body: JSON.stringify({ UserId: task.UserId }),
     });
     return state;
+  },
+  deleteProject: async(state)=>{
+    if (window.confirm(`Are you sure you want to delete the ${state.project.name} board?`)) {
+      await fetch(`/project/${state.project.id}/destroy`);
+      window.location.href= `/`;
+      return state
+    }
   },
 }
 app.start("projects", state, view, update);
