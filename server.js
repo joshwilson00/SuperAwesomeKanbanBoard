@@ -3,6 +3,8 @@ const Handlebars = require('handlebars')
 const expressHandlebars = require('express-handlebars')
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 const app = express()
+var http = require('http').createServer(app);
+const io = require('socket.io')(http);
 
 const { Project, Task, User, sequelize } = require('./models/models.js')
 
@@ -20,7 +22,9 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 
-
+io.on('connection', (socket)=>{
+    console.log('Client connected!');
+})
 
 
 //get all projects {id, name}, render home view
@@ -104,6 +108,7 @@ app.post('/task/project/:projectid/create', async (req, res) => {
     const task = await Task.create(req.body)
     const project = await Project.findByPk(req.params.projectid,{ logging: false })
     await project.addTask(task)
+    await sendTasks(req.params.projectid);
     res.redirect('back')
 })
 
@@ -111,6 +116,7 @@ app.post('/task/project/:projectid/create', async (req, res) => {
 app.post('/task/:taskid/update', async (req, res) => {
     const task = await Task.findByPk(req.params.taskid,{ logging: false })
     await task.update(req.body);
+    await sendTasks(task.ProjectId);
     res.redirect('back');
 })
 
@@ -118,6 +124,7 @@ app.post('/task/:taskid/update', async (req, res) => {
 app.get('/task/:taskid/destroy', async (req, res) => {
     const task = await Task.findByPk(req.params.taskid)
     await task.destroy()
+    await sendTasks(task.ProjectId);
     res.redirect('back')
 })
 
@@ -125,6 +132,7 @@ app.get('/task/:taskid/destroy', async (req, res) => {
 app.post('/task/:taskid/assign', async (req, res) => {
     const task = await Task.findByPk(req.params.taskid,{ logging: false })
     await task.update({UserId: req.body.UserId});
+    await sendTasks(task.ProjectId);
     res.redirect('back')
 })
 
@@ -135,16 +143,25 @@ app.get('/users', async (req, res)=>{
 app.get('/users/:id/delete', async (req, res)=>{
     const user = await User.findOne({where: {id: req.params.id}});
     await user.destroy();
+    await sendUsers();
     res.send();
 })
 app.post('/users/:id/update', async (req, res)=>{
     const user = await User.findOne({where: {id: req.params.id}});
     await user.update(req.body);
+    await sendUsers();
     res.redirect('back');
 })
 
-//host of port 3000
-app.listen(process.env.PORT, async () => {
+const sendUsers = async () =>{
+    const users = await User.findAll({ logging: false })
+    io.emit('userChange', users);
+}
+const sendTasks = async (id) =>{
+    const tasks = await Task.findAll({ where : {ProjectId : id }});
+    io.emit('taskChange', tasks);
+}
+http.listen(process.env.PORT, async () => {
     await sequelize.sync();
     console.log('Listening on', process.env.PORT);
 })

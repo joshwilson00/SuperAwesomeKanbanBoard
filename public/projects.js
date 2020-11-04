@@ -125,5 +125,9 @@ const update = {
       return state
     }
   },
+  updateTasks: (state, tasks)=>{
+    state.tasks = tasks;
+    return state;
+  } 
 }
 app.start("projects", state, view, update);

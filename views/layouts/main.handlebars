@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
-        <link rel="stylesheet" href="/style.css"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://unpkg.com/apprun/dist/apprun-html.js"></script>
 
-    </head>
-    <body>
-        {{{body}}}
-    </body>
-    <footer>
-        <p>Project by: Hal Vipan, Isabella Aston and Josh Wilson</p>
-        <p>Check out our <a href="https://github.com/halvipan/SuperAwesomeKanbanBoard">repo!</a></p>
-    </footer>
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@600&family=Quicksand:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/apprun/dist/apprun-html.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+</head>
+
+<body>
+    <script>
+        var socket = io();
+        socket.on('userChange', (users) => {
+            app.run('updateUsers', users);
+        });
+        socket.on('taskChange', (tasks) => {
+            app.run('updateTasks', tasks);
+        })
+    </script>
+    {{{body}}}
+</body>
+<footer>
+    <p>Project by: Hal Vipan, Isabella Aston and Josh Wilson</p>
+    <p>Check out our <a href="https://github.com/halvipan/SuperAwesomeKanbanBoard">repo!</a></p>
+</footer>
+
 </html>
