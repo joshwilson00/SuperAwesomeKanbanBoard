@@ -46,6 +46,10 @@ form {
     border: none;
     padding: 1vh;
     border-radius: .5rem;
+    
+}
+.button:hover{
+    cursor: pointer;
 }
 
 h1, h3 {
@@ -255,7 +259,21 @@ footer {
 .removeProject:hover {
     background-color: red;
 }
+.manageUsers {
+    position: absolute;
+    margin-left: 3vh;
+    left: 0;
+}
 
+
+table {
+    margin: auto;
+    width: 70%;
+}
+th, td {
+    text-align: center;
+    border-bottom: 1px solid white;
+}
 @media screen and (min-width: 40em) {
     .desktopView{
         display: block;
@@ -264,4 +282,8 @@ footer {
     .phoneView{
         display: none;
     }
+}
+
+.w3-container {
+    padding-bottom: 1rem;
 }
