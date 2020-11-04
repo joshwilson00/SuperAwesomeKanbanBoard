@@ -243,6 +243,19 @@ footer {
     background-color: red;
 }
 
+.removeProject {
+    margin: 2rem;
+    padding: .5rem;
+    background-color: white;
+    border-radius: 2rem;
+    position: absolute;
+    right: 0;
+}
+
+.removeProject:hover {
+    background-color: red;
+}
+
 @media screen and (min-width: 40em) {
     .desktopView{
         display: block;
