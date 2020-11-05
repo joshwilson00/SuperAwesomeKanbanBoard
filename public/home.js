@@ -20,7 +20,7 @@ const view = state =>`
 
             </a>
             `
-        })}
+        }).join("")}
         <div class="galleryProject">
             <div class="addProject">
                 <h3>Add a project:</h3>
@@ -42,4 +42,4 @@ const update = {
     }
 }
 
-app.run("home", state, view, update);
+app.start("desktopView", state, view, update);

@@ -21,6 +21,9 @@
         });
         socket.on('taskChange', (tasks) => {
             app.run('updateTasks', tasks);
+        });
+        socket.on('projectChange', (projects)=>{
+            app.run('updateProjects', projects)
         })
     </script>
     {{{body}}}

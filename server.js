@@ -30,7 +30,7 @@ io.on('connection', (socket)=>{
 //get all projects {id, name}, render home view
 app.get('/', async (req, res) => {
     const projects = await Project.findAll({ logging: false })
-    res.render('home', {projects})
+    res.render('home', {projects: JSON.stringify(projects)});
 })
 
 //get full project with nested tasks, sort tasks by task.status, return project, sorted tasks and users, render projects view
@@ -81,22 +81,25 @@ app.post('/user/:userid/destroy', async (req, res) => {
 
 //create project, redirect back
 app.post('/project/create', async (req, res) => {
-    await Project.create(req.body)
-    res.redirect('back')
+    await Project.create(req.body);
+    await sendProjects();
+    res.redirect('back');
 })
 
 //find from id and update project, redirect back
 app.post('/project/:projectid/update', async (req, res) => {
-    const project = await Project.findByPk(req.params.projectid,{ logging: false })
-    await project.update(req.body)
-    res.redirect('back')
+    const project = await Project.findByPk(req.params.projectid,{ logging: false });
+    await project.update(req.body);
+    await sendProjects();
+    res.redirect('back');
 })
 
 //find from id and destroy project, redirect to home
 app.get('/project/:projectid/destroy', async (req, res) => {
-    const project = await Project.findByPk(req.params.projectid)
-    await project.destroy()
-    res.redirect('/')
+    const project = await Project.findByPk(req.params.projectid);
+    await project.destroy();
+    await sendProjects();
+    res.redirect('/');
 })
 
 
@@ -168,6 +171,10 @@ const sendUsers = async () =>{
 const sendTasks = async (id) =>{
     const tasks = await Task.findAll({ where : {ProjectId : id }});
     io.emit('taskChange', tasks);
+}
+const sendProjects = async()=>{
+    const projects = await Project.findAll();
+    io.emit('projectChange', projects);
 }
 http.listen(process.env.PORT, async () => {
     await sequelize.sync();
