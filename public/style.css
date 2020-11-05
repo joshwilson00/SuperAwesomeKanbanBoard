@@ -260,7 +260,7 @@ footer {
 .removeProject:hover {
     background-color: red;
 }
-.manageUsers {
+.manageUsers, .profileButton {
     position: absolute;
     margin-left: 3vh;
     left: 0;
@@ -275,13 +275,31 @@ th, td {
     text-align: center;
     border-bottom: 1px solid white;
 }
-@media screen and (min-width: 40em) {
-    .desktopView{
-        display: block;
-    }
 
-    .phoneView{
-        display: none;
+.profileContainer {
+    text-align: center;
+    width: 95%;
+    margin: auto;
+    margin-top: 1rem;
+    background-color: #f3f3f3;
+    border-radius: 1rem;
+}
+.profileHeader img {
+    margin-top: 1rem;
+    height: 10rem;
+    width: 10rem;
+}
+.profileButton {
+    margin-top: .5rem
+}
+.profileContent {
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+@media screen and (min-width: 40em) {
+    .profileContainer {
+        width: 60%;
     }
 }
 
