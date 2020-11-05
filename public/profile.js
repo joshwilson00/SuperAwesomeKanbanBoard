@@ -1,7 +1,7 @@
 const view = state => `
 <div class='profileContainer'>
     <div class='profileHeader'>
-        <button class='button profileButton'>Back</button>
+        <button class='button profileButton' type="button" onclick="javascript:history.back()">Back</button>
         <img src="${state.user.avatar}" />
         <h2>${state.user.name}</h2>
     </div>
@@ -12,11 +12,25 @@ const view = state => `
     </div>
     <div class="profileContent">
         <h4>Current working on</h4>
+        ${state.tasks.map(task=>{
+            return `
+            <hr />
+            <a href="/project/${task.ProjectId}">
+                <h4>${showProject(task.ProjectId)}</h4>
+                Task: ${task.description}
+            </a>
+            `
+        }).join("")}
     </div
 </div>
 `
+const showProject = (projectID) =>{
+    const project = state.projects.find(project => project.id === Number(projectID));
+    return`${project.name}`
+}
 
 const update = {
+
 
 }
 

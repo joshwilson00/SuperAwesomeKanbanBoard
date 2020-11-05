@@ -14,8 +14,8 @@ const view = state =>`
         ${state.users.map(user=>{
             return `
                 <tr>
-                    <td>${user.id}</td>
-                    <td>${user.name}</td>
+                    <td><a href="/users/${user.id}">${user.id}</a></td>
+                    <td><a href="/users/${user.id}">${user.name}</a></td>
                     <td><button class="button" onclick="document.getElementById('${user.id}').style.display='block'">Edit</button></td>
                     <td><button class="button" name=${user.id} onclick="app.run('deleteUser', event)">Delete User</button></td>
                 </tr>

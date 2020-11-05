@@ -157,8 +157,8 @@ app.get('/users/:id', async (req, res)=>{
     const user = await User.findOne({where: {id: req.params.id}});
     const tasks = await Task.findAll({where: {UserId: user.id}});
     const projects = await Project.findAll();
-    console.log(projects);
-    res.render('userProfile', {user: JSON.stringify(user), tasks: JSON.stringify(tasks)});
+    console.log(user);
+    res.render('userProfile', {user: JSON.stringify(user), tasks: JSON.stringify(tasks), projects: JSON.stringify(projects)});
 })
 
 const sendUsers = async () =>{

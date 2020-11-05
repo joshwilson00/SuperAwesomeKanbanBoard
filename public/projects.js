@@ -65,7 +65,9 @@ const showAvatar = userId => {
     const user = state.users.find(user => user.id === Number(userId));
     return `
       <div id='userIMG'>
+        <a href="/users/${user.id}">
         <img src="${user.avatar}" />
+        </a>
       </div>
     `  
   }
@@ -85,7 +87,7 @@ const update = {
         task.status = 0;
     } else if (event.target.id == 'doing') {
         task.status = 1;
-    } else {
+    } else if (event.target.id == 'done') {
         task.status = 2;
     }
     await fetch(`/task/${id}/update`, {

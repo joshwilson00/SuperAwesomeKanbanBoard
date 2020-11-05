@@ -278,7 +278,7 @@ th, td {
 
 .profileContainer {
     text-align: center;
-    width: 60%;
+    width: 95%;
     margin: auto;
     margin-top: 1rem;
     background-color: #f3f3f3;
@@ -289,16 +289,17 @@ th, td {
     height: 10rem;
     width: 10rem;
 }
+.profileButton {
+    margin-top: .5rem
+}
 .profileContent {
     margin-top: 1rem;
+    padding-bottom: 1rem;
 }
-@media screen and (min-width: 40em) {
-    .desktopView{
-        display: block;
-    }
 
-    .phoneView{
-        display: none;
+@media screen and (min-width: 40em) {
+    .profileContainer {
+        width: 60%;
     }
 }
 
