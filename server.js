@@ -153,6 +153,14 @@ app.post('/users/:id/update', async (req, res)=>{
     res.redirect('back');
 })
 
+app.get('/users/:id', async (req, res)=>{
+    const user = await User.findOne({where: {id: req.params.id}});
+    const tasks = await Task.findAll({where: {UserId: user.id}});
+    const projects = await Project.findAll();
+    console.log(projects);
+    res.render('userProfile', {user: JSON.stringify(user), tasks: JSON.stringify(tasks)});
+})
+
 const sendUsers = async () =>{
     const users = await User.findAll({ logging: false })
     io.emit('userChange', users);

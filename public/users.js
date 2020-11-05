@@ -6,6 +6,7 @@ const view = state =>`
 <div class=tableContainer>
     <table>
         <tr>
+            <th>ID</th>
             <th>User</th>
             <th>Edit</th>
             <th>Delete</th>
@@ -13,6 +14,7 @@ const view = state =>`
         ${state.users.map(user=>{
             return `
                 <tr>
+                    <td>${user.id}</td>
                     <td>${user.name}</td>
                     <td><button class="button" onclick="document.getElementById('${user.id}').style.display='block'">Edit</button></td>
                     <td><button class="button" name=${user.id} onclick="app.run('deleteUser', event)">Delete User</button></td>
