@@ -31,7 +31,6 @@ const showProject = (projectID) =>{
 
 const update = {
 
-
 }
 
 app.start('profile', state, view, update);
