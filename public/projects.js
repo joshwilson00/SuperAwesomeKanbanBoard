@@ -1,4 +1,5 @@
 const view = (state) => `
+<title>${state.project.name}</title>
 <div class="desktopView">
   <div class="nav">
     <a href="/">Back to projects</a>

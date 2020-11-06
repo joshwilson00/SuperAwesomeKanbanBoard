@@ -1,4 +1,5 @@
 const view = state =>`
+    <title>Home Page</title>
     <div class="topBar">
         <h2>Super Awesome Kanban Board</h2>
     </div>
