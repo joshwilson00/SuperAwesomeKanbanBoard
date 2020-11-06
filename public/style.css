@@ -303,12 +303,12 @@ th, td {
         width: 60%;
     }
     .gallery {
-        grid-template-columns: auto auto;
+        grid-template-columns: 1fr 1fr;
     }
 }
 @media screen and (min-width: 60em) {
     .gallery {
-        grid-template-columns: auto auto auto;
+        grid-template-columns: 1fr 1fr 1fr;
     }  
 }
 
