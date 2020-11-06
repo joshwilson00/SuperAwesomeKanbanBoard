@@ -1,4 +1,5 @@
 const view = state => `
+<title>User Profile - ${state.user.name}</title>
 <div class='profileContainer'>
     <div class='profileHeader'>
         <button class='button profileButton' type="button" onclick="javascript:history.back()">Back</button>

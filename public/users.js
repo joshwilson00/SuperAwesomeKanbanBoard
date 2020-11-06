@@ -1,5 +1,6 @@
 
 const view = state =>`
+<title>User Management</title>
 <div class="nav">
     <a href="/">Back to projects</a>
 </div>
